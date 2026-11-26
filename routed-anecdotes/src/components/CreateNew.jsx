@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router"
-import { useField } from "../hooks"
+import { useField, useAnecdotes } from "../hooks"
 
-const CreateNew = ({ addAnecdote }) => {
+const CreateNew = () => {
   const { reset: resetContent, ...contentProps } = useField('text')
   const { reset: resetAuthor, ...authorProps } = useField('text')
   const { reset: resetInfo, ...infoProps } = useField('text')
   const navigate = useNavigate()
+  const { addAnecdote } = useAnecdotes()
 
   const handleSubmit = (e) => {
     e.preventDefault()
