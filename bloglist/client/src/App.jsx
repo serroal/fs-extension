@@ -8,6 +8,7 @@ import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import BlogList from './components/BlogList'
 import Blog from './components/Blog'
+import ErrorBoundary from './components/ErrorBoundary'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -140,26 +141,28 @@ const App = () => {
         </Toolbar>
       </AppBar>
       <Notification message={errorMessage} />
-      <Routes>
-        <Route path="/login" element={
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleLogin={handleLogin}
-          />
-        } />
-        <Route path="/create" element={
-          <BlogForm createBlog={addBlog} />
-        } />
-        <Route path="/blogs/:id" element={
-          <Blog blog={blog} deleteBlog={deleteBlog} updateBlog={updateBlog} user={user} />
-        } />
-        <Route path="/" element={
-          <BlogList blogs={blogs} />
-        } />
-      </Routes>
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/login" element={
+            <LoginForm
+              username={username}
+              password={password}
+              handleUsernameChange={({ target }) => setUsername(target.value)}
+              handlePasswordChange={({ target }) => setPassword(target.value)}
+              handleLogin={handleLogin}
+            />
+          } />
+          <Route path="/create" element={
+            <BlogForm createBlog={addBlog} />
+          } />
+          <Route path="/blogs/:id" element={
+            <Blog blog={blog} deleteBlog={deleteBlog} updateBlog={updateBlog} user={user} />
+          } />
+          <Route path="/" element={
+            <BlogList blogs={blogs} />
+          } />
+        </Routes>
+      </ErrorBoundary>
     </Container>
   )
 }
